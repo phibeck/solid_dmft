@@ -1,0 +1,480 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>vasp_manager.py &mdash; solid_dmft  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="dmft cycle module" href="../dmft_cycle.html" />
+    <link rel="prev" title="qe_manager.py" href="qe_manager.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #7E588A" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> solid_dmft
+          
+
+          
+            
+            <img src="../../_static/logo_no_text.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                3.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">install</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../install.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../install.html#installation-steps">Installation steps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../install.html#version-compatibility">Version compatibility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../install.html#custom-cmake-options">Custom CMake options</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../documentation.html">documentation</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../documentation.html#module-reference-manual">module reference manual</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../csc_flow.html">CSC flow module</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../dft_managers.html">dft managers</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="qe_manager.html">qe_manager.py</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">vasp_manager.py</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../dmft_cycle.html">dmft cycle module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dmft_tools.html">dmft tools modules</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../dmft_tools/afm_mapping.html">afm_mapping.py</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dmft_tools/convergence.html">convergence.py</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dmft_tools/formatter.html">formatter.py</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dmft_tools/gf_mixer.html">greens_function_mixer.py</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dmft_tools/initial_sigma.html">initial_self_energies.py</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dmft_tools/interaction_ham.html">interaction_hamiltonian.py</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dmft_tools/legendre_filter.html">legendre_filter.py</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dmft_tools/manipulate_mu.html">manipulate_chemical_potential.py</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dmft_tools/observables.html">observables.py</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dmft_tools/results_arch.html">results_to_archive.py</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../dmft_tools/solver.html">solver.py</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../postprocessing.html">postprocessing tools</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../postprocessing/make_spaghetti.html">make_spaghetti.py</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../postprocessing/maxent_gf_imp.html">maxent_gf_imp.py</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../postprocessing/maxent_gf_latt.html">maxent_gf_latt.py</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../postprocessing/maxent_sigma.html">maxent_sigma.py</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../postprocessing/postproc_plotbands.html">postproc_plotbands.py</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../read_config.html">read config parser</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../read_config.html#general">general</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../read_config.html#solver">solver</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../read_config.html#dft">dft</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../read_config.html#advanced">advanced</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../util.html">util</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../util/symmetrize_gamma_file.html">symmetrize_gamma_file.py</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../util/update_dmft_config.html">update_dmft_config.py</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../util/update_results_h5.html">update_results_h5.py</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../util/write_kslice_to_h5.html">write_kslice_to_h5.py</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../documentation.html#dft-code-interfaces">DFT code interfaces</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../md_notes/w90_interface.html">Wannier90 interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../md_notes/w90_interface.html#orbital-order-in-the-w90-converter">orbital order in the W90 converter</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../md_notes/vasp_csc.html">interface to VASP</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../md_notes/vasp_csc.html#general-remarks">General remarks</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../md_notes/vasp_csc.html#locproj-bug-for-individual-projections">LOCPROJ bug for individual projections:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../md_notes/vasp_csc.html#convergence-of-projectors-with-vasp">convergence of projectors with Vasp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../md_notes/vasp_csc.html#enabling-csc-calculations-with-wannier90-projectors">Enabling CSC calculations with Wannier90 projectors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../md_notes/vasp_csc.html#speeding-up-by-not-writing-projectors-at-every-step">Speeding up by not writing projectors at every step</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../documentation.html#run-solid-dmft">run solid_dmft</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../md_notes/docker.html">Docker</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../md_notes/docker.html#building-the-docker-image">Building the docker image</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../md_notes/docker.html#pulling-a-docker-image">Pulling a docker image</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../md_notes/docker.html#getting-docker-images-onto-cscs-daint">Getting docker images onto CSCS daint</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../md_notes/docker.html#running-a-docker-container">Running a docker container</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../md_notes/run_locally.html">run on your machine</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../md_notes/run_locally.html#csc-calculations-locally">CSC calculations locally</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../md_notes/run_cluster.html">Running solid_dmft on a cluster</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../md_notes/run_cluster.html#running-on-cscs-daint">Running on CSCS daint</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../md_notes/run_cluster.html#one-shot-job-on-daint">one shot job on daint</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../md_notes/run_cluster.html#csc-calculations-on-daint">CSC calculations on daint</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials.html">tutorials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/CaFeO3_csc_plo/tutorial.html">CaFeO3 CSC with VASP PLOs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorials/CaFeO3_csc_plo/tutorial.html#Running-the-initial-SCF-DFT-calculation-(~-1-core-hour)">Running the initial SCF DFT calculation (~ 1 core hour)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorials/CaFeO3_csc_plo/tutorial.html#Input-files-for-CSC-DMFT-calculations">Input files for CSC DMFT calculations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorials/CaFeO3_csc_plo/tutorial.html#Running-the-CSC-DMFT-calculations">Running the CSC DMFT calculations</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../issues.html">reporting issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../changelog.html#version-3-0-0">Version 3.0.0</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">solid_dmft</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../documentation.html">documentation</a> &raquo;</li>
+        
+          <li><a href="../dft_managers.html">dft managers</a> &raquo;</li>
+        
+      <li>vasp_manager.py</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../_sources/reference/dft_managers/vasp_manager.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="module-solid_dmft.dft_managers.vasp_manager">
+<span id="vasp-manager-py"></span><h1>vasp_manager.py<a class="headerlink" href="#module-solid_dmft.dft_managers.vasp_manager" title="Permalink to this headline">¶</a></h1>
+<p>Contains the handling of the VASP process. It can start VASP, reactivate it,
+check if the lock file is there and finally kill VASP. Needed for CSC calculations.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="solid_dmft.dft_managers.vasp_manager._create_hostfile">
+<code class="sig-prename descclassname"><span class="pre">solid_dmft.dft_managers.vasp_manager.</span></code><code class="sig-name descname"><span class="pre">_create_hostfile</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">number_cores</span></span></em>, <em><span class="n"><span class="pre">cluster_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/solid_dmft/dft_managers/vasp_manager.html#_create_hostfile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#solid_dmft.dft_managers.vasp_manager._create_hostfile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes a host file for the mpirun. This tells mpi which nodes to ssh into
+and start VASP on. The format of the hist file depends on the type of MPI
+that is used.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>number_cores: int, the number of cores that vasp runs on</strong> :</p>
+<p><strong>cluster_name: string, the name of the server</strong> :</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>string: name of the hostfile if not run locally and if called by master node</strong> :</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="solid_dmft.dft_managers.vasp_manager._find_path_to_mpi_command">
+<code class="sig-prename descclassname"><span class="pre">solid_dmft.dft_managers.vasp_manager.</span></code><code class="sig-name descname"><span class="pre">_find_path_to_mpi_command</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">env_vars</span></span></em>, <em><span class="n"><span class="pre">mpi_exe</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/solid_dmft/dft_managers/vasp_manager.html#_find_path_to_mpi_command"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#solid_dmft.dft_managers.vasp_manager._find_path_to_mpi_command" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds the complete path for the mpi executable by scanning the directories
+of $PATH.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>env_vars: dict of string, environment variables containing PATH</strong> :</p>
+<p><strong>mpi_exe: string, mpi command</strong> :</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>string: absolute path to mpi command</strong> :</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="solid_dmft.dft_managers.vasp_manager._fork_and_start_vasp">
+<code class="sig-prename descclassname"><span class="pre">solid_dmft.dft_managers.vasp_manager.</span></code><code class="sig-name descname"><span class="pre">_fork_and_start_vasp</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">mpi_exe</span></span></em>, <em><span class="n"><span class="pre">arguments</span></span></em>, <em><span class="n"><span class="pre">env_vars</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/solid_dmft/dft_managers/vasp_manager.html#_fork_and_start_vasp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#solid_dmft.dft_managers.vasp_manager._fork_and_start_vasp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Forks a process from the master process that then calls mpi to start vasp.
+The child process running VASP never leaves this function whereas the main
+process returns the child’s process id and continues. We use explicitly
+os.fork as os.execve here because subprocess does not return, and as VASP
+needs to keep running throughout the whole DFT+DMFT calculation that is
+not a viable solution here.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>mpi_exe: string, mpi command</strong> :</p>
+<p><strong>arguments: list of string, arguments to start mpi with</strong> :</p>
+<p><strong>env_vars: dict of string, environment variables containing PATH</strong> :</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>int: id of the VASP child process</strong> :</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="solid_dmft.dft_managers.vasp_manager._get_mpi_arguments">
+<code class="sig-prename descclassname"><span class="pre">solid_dmft.dft_managers.vasp_manager.</span></code><code class="sig-name descname"><span class="pre">_get_mpi_arguments</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">cluster_name</span></span></em>, <em><span class="n"><span class="pre">mpi_exe</span></span></em>, <em><span class="n"><span class="pre">number_cores</span></span></em>, <em><span class="n"><span class="pre">vasp_command</span></span></em>, <em><span class="n"><span class="pre">hostfile</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/solid_dmft/dft_managers/vasp_manager.html#_get_mpi_arguments"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#solid_dmft.dft_managers.vasp_manager._get_mpi_arguments" title="Permalink to this definition">¶</a></dt>
+<dd><p>Depending on the settings of the cluster and the type of MPI used,
+the arguments to the mpi call have to be different. The most technical part
+of the vasp handler.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>cluster_name: string, name of the cluster so that settings can be tailored to it</strong> :</p>
+<p><strong>mpi_exe: string, mpi command</strong> :</p>
+<p><strong>number_cores: int, the number of cores that vasp runs on</strong> :</p>
+<p><strong>vasp_command: string, the command to start vasp</strong> :</p>
+<p><strong>hostfile: string, name of the hostfile</strong> :</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>list of string: arguments to start mpi with</strong> :</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="solid_dmft.dft_managers.vasp_manager.is_lock_file_present">
+<code class="sig-prename descclassname"><span class="pre">solid_dmft.dft_managers.vasp_manager.</span></code><code class="sig-name descname"><span class="pre">is_lock_file_present</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/solid_dmft/dft_managers/vasp_manager.html#is_lock_file_present"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#solid_dmft.dft_managers.vasp_manager.is_lock_file_present" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks if the lock file ‘vasp.lock’ is there, i.e. if VASP is still working.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="solid_dmft.dft_managers.vasp_manager.kill">
+<code class="sig-prename descclassname"><span class="pre">solid_dmft.dft_managers.vasp_manager.</span></code><code class="sig-name descname"><span class="pre">kill</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">vasp_process_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/solid_dmft/dft_managers/vasp_manager.html#kill"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#solid_dmft.dft_managers.vasp_manager.kill" title="Permalink to this definition">¶</a></dt>
+<dd><p>Kills the VASP process.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="solid_dmft.dft_managers.vasp_manager.reactivate">
+<code class="sig-prename descclassname"><span class="pre">solid_dmft.dft_managers.vasp_manager.</span></code><code class="sig-name descname"><span class="pre">reactivate</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/solid_dmft/dft_managers/vasp_manager.html#reactivate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#solid_dmft.dft_managers.vasp_manager.reactivate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reactivates VASP by creating the vasp.lock file.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="solid_dmft.dft_managers.vasp_manager.start">
+<code class="sig-prename descclassname"><span class="pre">solid_dmft.dft_managers.vasp_manager.</span></code><code class="sig-name descname"><span class="pre">start</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">number_cores</span></span></em>, <em><span class="n"><span class="pre">vasp_command</span></span></em>, <em><span class="n"><span class="pre">cluster_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/solid_dmft/dft_managers/vasp_manager.html#start"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#solid_dmft.dft_managers.vasp_manager.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Starts the VASP child process. Takes care of initializing a clean
+environment for the child process. This is needed so that VASP does not
+get confused with all the standard slurm environment variables.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>number_cores: int, the number of cores that vasp runs on</strong> :</p>
+<p><strong>vasp_command: string, the command to start vasp</strong> :</p>
+<p class="last"><strong>cluster_name: string, name of the cluster so that settings can be tailored to it</strong> :</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../dmft_cycle.html" class="btn btn-neutral float-right" title="dmft cycle module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="qe_manager.html" class="btn btn-neutral float-left" title="qe_manager.py" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright Copyright (C) 2018-2020, ETH Zurich Copyright (C) 2021, The Simons Foundation authors: A. Hampel, M. Merkel, and S. Beck.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

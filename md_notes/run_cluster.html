@@ -1,0 +1,415 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Running solid_dmft on a cluster &mdash; solid_dmft  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="tutorials" href="../tutorials.html" />
+    <link rel="prev" title="run on your machine" href="run_locally.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #7E588A" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> solid_dmft
+          
+
+          
+            
+            <img src="../_static/logo_no_text.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                3.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../install.html">install</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../install.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../install.html#installation-steps">Installation steps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../install.html#version-compatibility">Version compatibility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../install.html#custom-cmake-options">Custom CMake options</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../documentation.html">documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../documentation.html#module-reference-manual">module reference manual</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../reference/csc_flow.html">CSC flow module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/dft_managers.html">dft managers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../reference/dft_managers/qe_manager.html">qe_manager.py</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/dft_managers/vasp_manager.html">vasp_manager.py</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/dmft_cycle.html">dmft cycle module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/dmft_tools.html">dmft tools modules</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../reference/dmft_tools/afm_mapping.html">afm_mapping.py</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/dmft_tools/convergence.html">convergence.py</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/dmft_tools/formatter.html">formatter.py</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/dmft_tools/gf_mixer.html">greens_function_mixer.py</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/dmft_tools/initial_sigma.html">initial_self_energies.py</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/dmft_tools/interaction_ham.html">interaction_hamiltonian.py</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/dmft_tools/legendre_filter.html">legendre_filter.py</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/dmft_tools/manipulate_mu.html">manipulate_chemical_potential.py</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/dmft_tools/observables.html">observables.py</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/dmft_tools/results_arch.html">results_to_archive.py</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/dmft_tools/solver.html">solver.py</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/postprocessing.html">postprocessing tools</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../reference/postprocessing/make_spaghetti.html">make_spaghetti.py</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/postprocessing/maxent_gf_imp.html">maxent_gf_imp.py</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/postprocessing/maxent_gf_latt.html">maxent_gf_latt.py</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/postprocessing/maxent_sigma.html">maxent_sigma.py</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/postprocessing/postproc_plotbands.html">postproc_plotbands.py</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/read_config.html">read config parser</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../reference/read_config.html#general">general</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/read_config.html#solver">solver</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/read_config.html#dft">dft</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/read_config.html#advanced">advanced</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/util.html">util</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../reference/util/symmetrize_gamma_file.html">symmetrize_gamma_file.py</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/util/update_dmft_config.html">update_dmft_config.py</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/util/update_results_h5.html">update_results_h5.py</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/util/write_kslice_to_h5.html">write_kslice_to_h5.py</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../documentation.html#dft-code-interfaces">DFT code interfaces</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="w90_interface.html">Wannier90 interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="w90_interface.html#orbital-order-in-the-w90-converter">orbital order in the W90 converter</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="vasp_csc.html">interface to VASP</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="vasp_csc.html#general-remarks">General remarks</a></li>
+<li class="toctree-l4"><a class="reference internal" href="vasp_csc.html#locproj-bug-for-individual-projections">LOCPROJ bug for individual projections:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="vasp_csc.html#convergence-of-projectors-with-vasp">convergence of projectors with Vasp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="vasp_csc.html#enabling-csc-calculations-with-wannier90-projectors">Enabling CSC calculations with Wannier90 projectors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="vasp_csc.html#speeding-up-by-not-writing-projectors-at-every-step">Speeding up by not writing projectors at every step</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="reference internal" href="../documentation.html#run-solid-dmft">run solid_dmft</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="docker.html">Docker</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="docker.html#building-the-docker-image">Building the docker image</a></li>
+<li class="toctree-l4"><a class="reference internal" href="docker.html#pulling-a-docker-image">Pulling a docker image</a></li>
+<li class="toctree-l4"><a class="reference internal" href="docker.html#getting-docker-images-onto-cscs-daint">Getting docker images onto CSCS daint</a></li>
+<li class="toctree-l4"><a class="reference internal" href="docker.html#running-a-docker-container">Running a docker container</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="run_locally.html">run on your machine</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="run_locally.html#csc-calculations-locally">CSC calculations locally</a></li>
+</ul>
+</li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Running solid_dmft on a cluster</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#running-on-cscs-daint">Running on CSCS daint</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#one-shot-job-on-daint">one shot job on daint</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csc-calculations-on-daint">CSC calculations on daint</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials.html">tutorials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/CaFeO3_csc_plo/tutorial.html">CaFeO3 CSC with VASP PLOs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/CaFeO3_csc_plo/tutorial.html#Running-the-initial-SCF-DFT-calculation-(~-1-core-hour)">Running the initial SCF DFT calculation (~ 1 core hour)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/CaFeO3_csc_plo/tutorial.html#Input-files-for-CSC-DMFT-calculations">Input files for CSC DMFT calculations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/CaFeO3_csc_plo/tutorial.html#Running-the-CSC-DMFT-calculations">Running the CSC DMFT calculations</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../issues.html">reporting issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../changelog.html#version-3-0-0">Version 3.0.0</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">solid_dmft</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../documentation.html">documentation</a> &raquo;</li>
+        
+      <li>Running solid_dmft on a cluster</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/md_notes/run_cluster.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="running-solid-dmft-on-a-cluster">
+<h1>Running solid_dmft on a cluster<a class="headerlink" href="#running-solid-dmft-on-a-cluster" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="running-on-cscs-daint">
+<h2>Running on CSCS daint<a class="headerlink" href="#running-on-cscs-daint" title="Permalink to this headline">¶</a></h2>
+<p>in some directories one can also find example job files to run everything on
+daint. Note, that one has to first load the desired docker images with sarus
+on daint: <a class="reference external" href="https://user.cscs.ch/tools/containers/sarus/" rel="noopener noreferrer" target="_blank">https://user.cscs.ch/tools/containers/sarus/</a>, see the <a class="reference external" href="http://README.md" rel="noopener noreferrer" target="_blank">README.md</a> in the <code class="docutils literal notranslate"><span class="pre">/Docker</span></code> folder.</p>
+</div>
+<div class="section" id="one-shot-job-on-daint">
+<h2>one shot job on daint<a class="headerlink" href="#one-shot-job-on-daint" title="Permalink to this headline">¶</a></h2>
+<p>one shot is quite straight forward. Just get the newest version of these
+scripts, go to a working directory and then create job file that looks like
+this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>#!/bin/bash
+#SBATCH --job-name=&quot;svo-test&quot;
+#SBATCH --time=1:00:00
+#SBATCH --nodes=2
+#SBATCH --ntasks-per-node=36
+#SBATCH --account=eth3
+#SBATCH --ntasks-per-core=1
+#SBATCH --constraint=mc
+#SBATCH --partition=normal
+#SBATCH --output=out.%j
+#SBATCH --error=err.%j
+
+#======START=====
+
+srun sarus run --mpi --mount=type=bind,source=$SCRATCH,destination=$SCRATCH --mount=type=bind,source=/apps,destination=/apps load/library/triqs-2.1-vasp bash -c &quot;cd $PWD ; python /apps/ethz/eth3/dmatl-theory-git/solid_dmft/solid_dmft.py&quot;
+</pre></div>
+</div>
+<p>thats it. This line automatically runs the docker image and executes the
+<code class="docutils literal notranslate"><span class="pre">solid_dmft.py</span></code> script. Unfortunately the new sarus container enginge does not mounts automatically user directories. Therefore, one needs to specify with <code class="docutils literal notranslate"><span class="pre">--mount</span></code> to mount the scratch and apps folder manually. Then, one executes in the container bash to first go into the current dir and then executes python and the dmft script.</p>
+</div>
+<div class="section" id="csc-calculations-on-daint">
+<h2>CSC calculations on daint<a class="headerlink" href="#csc-calculations-on-daint" title="Permalink to this headline">¶</a></h2>
+<p>CSC calculations need the parameter <code class="docutils literal notranslate"><span class="pre">csc</span> <span class="pre">=</span> <span class="pre">True</span></code> and the mandatory parameters from the group <code class="docutils literal notranslate"><span class="pre">dft</span></code>.
+Then, solid_dmft automatically starts VASP on as many cores as specified.
+Note that VASP runs on cores that are already used by solid_dmft.
+This minimizes the time that cores are idle while not harming the performance because these two processes are never active at the same time.</p>
+<p>For the latest version in the Dockerfile_MPICH, we need the sarus version &gt;= 1.3.2, which can be loaded from the daint modules as <code class="docutils literal notranslate"><span class="pre">sarus/1.3.2</span></code> but isn’t the default version.
+The reason for this is that only from this sarus version on, having more than one version of libgfortran in the docker image is supported, which comes from Vasp requiring the use of gfortran7 and everything else using gfortran9.</p>
+<p>A slurm job script should look like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>#!/bin/bash
+#SBATCH --job-name=&quot;svo-csc-test&quot;
+#SBATCH --time=4:00:00
+#SBATCH --nodes=4
+#SBATCH --ntasks-per-node=36
+#SBATCH --account=eth3
+#SBATCH --ntasks-per-core=1
+#SBATCH --constraint=mc
+#SBATCH --partition=normal
+#SBATCH --output=out.%j
+#SBATCH --error=err.%j
+
+# path to solid_dmft.py script
+SCRIPTDIR=/apps/ethz/eth3/dmatl-theory-git/solid_dmft/solid_dmft.py
+# Sarus image that is utilized
+IMAGE=load/library/triqs_mpich
+
+srun --cpu-bind=none --mpi=pmi2 sarus run --mount=type=bind,source=/apps,destination=/apps --mount=type=bind,source=$SCRATCH,destination=$SCRATCH --workdir=$PWD $IMAGE python3 $SCRIPTDIR
+</pre></div>
+</div>
+<p>Note that here the mpi option is given to the <code class="docutils literal notranslate"><span class="pre">srun</span></code> command and not the sarus command, as for one-shot calculations.
+This is important for the python to be able to start VASP.</p>
+<p>In general I found 1 node for Vasp is in most cases enough, which means that we set <code class="docutils literal notranslate"><span class="pre">n_cores</span></code> in the dmft_config.ini to 36 here.
+Using more than one node results in a lot of MPI communication, which in turn slows down the calculation significantly.
+For a 80 atom unit cell 2 nodes are useful, but for a 20 atom unit cell not at all!</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../tutorials.html" class="btn btn-neutral float-right" title="tutorials" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="run_locally.html" class="btn btn-neutral float-left" title="run on your machine" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright Copyright (C) 2018-2020, ETH Zurich Copyright (C) 2021, The Simons Foundation authors: A. Hampel, M. Merkel, and S. Beck.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
