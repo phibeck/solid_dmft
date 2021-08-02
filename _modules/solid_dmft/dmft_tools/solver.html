@@ -186,9 +186,12 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../tutorials.html">tutorials</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/CaFeO3_csc_plo/tutorial.html">Running the initial SCF DFT calculation (~ 1 core hour)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/CaFeO3_csc_plo/tutorial.html#Input-files-for-CSC-DMFT-calculations">Input files for CSC DMFT calculations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/CaFeO3_csc_plo/tutorial.html#Running-the-CSC-DMFT-calculations">Running the CSC DMFT calculations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/CaFeO3_csc_plo/tutorial.html">CaFeO3 CSC with VASP PLOs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/CaFeO3_csc_plo/tutorial.html#Running-the-initial-SCF-DFT-calculation-(~-1-core-hour)">Running the initial SCF DFT calculation (~ 1 core hour)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/CaFeO3_csc_plo/tutorial.html#Input-files-for-CSC-DMFT-calculations">Input files for CSC DMFT calculations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/CaFeO3_csc_plo/tutorial.html#Running-the-CSC-DMFT-calculations">Running the CSC DMFT calculations</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../issues.html">reporting issues</a></li>
@@ -286,15 +289,15 @@
 <span class="c1">#</span>
 <span class="c1">################################################################################</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">product</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="k">import</span> <span class="n">product</span>
 
-<span class="kn">from</span> <span class="nn">triqs.gf</span> <span class="kn">import</span> <span class="n">GfImTime</span><span class="p">,</span> <span class="n">GfReTime</span><span class="p">,</span> <span class="n">GfImFreq</span><span class="p">,</span> <span class="n">GfReFreq</span><span class="p">,</span> <span class="n">GfLegendre</span><span class="p">,</span> <span class="n">BlockGf</span><span class="p">,</span> <span class="n">make_hermitian</span><span class="p">,</span> <span class="n">Omega</span>
-<span class="kn">from</span> <span class="nn">triqs.gf.tools</span> <span class="kn">import</span> <span class="n">inverse</span><span class="p">,</span> <span class="n">make_zero_tail</span>
-<span class="kn">from</span> <span class="nn">triqs.gf.descriptors</span> <span class="kn">import</span> <span class="n">Fourier</span>
+<span class="kn">from</span> <span class="nn">triqs.gf</span> <span class="k">import</span> <span class="n">GfImTime</span><span class="p">,</span> <span class="n">GfReTime</span><span class="p">,</span> <span class="n">GfImFreq</span><span class="p">,</span> <span class="n">GfReFreq</span><span class="p">,</span> <span class="n">GfLegendre</span><span class="p">,</span> <span class="n">BlockGf</span><span class="p">,</span> <span class="n">make_hermitian</span><span class="p">,</span> <span class="n">Omega</span>
+<span class="kn">from</span> <span class="nn">triqs.gf.tools</span> <span class="k">import</span> <span class="n">inverse</span><span class="p">,</span> <span class="n">make_zero_tail</span>
+<span class="kn">from</span> <span class="nn">triqs.gf.descriptors</span> <span class="k">import</span> <span class="n">Fourier</span>
 <span class="kn">import</span> <span class="nn">triqs.utility.mpi</span> <span class="k">as</span> <span class="nn">mpi</span>
-<span class="kn">from</span> <span class="nn">h5</span> <span class="kn">import</span> <span class="n">HDFArchive</span>
+<span class="kn">from</span> <span class="nn">h5</span> <span class="k">import</span> <span class="n">HDFArchive</span>
 
-<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">legendre_filter</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">legendre_filter</span>
 
 <div class="viewcode-block" id="_gf_fit_tail_fraction"><a class="viewcode-back" href="../../../reference/dmft_tools/solver.html#solid_dmft.dmft_tools.solver._gf_fit_tail_fraction">[docs]</a><span class="k">def</span> <span class="nf">_gf_fit_tail_fraction</span><span class="p">(</span><span class="n">Gf</span><span class="p">,</span> <span class="n">fraction</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">known_moments</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -342,7 +345,7 @@
 <span class="sd">    Handles all soliDMFT solver objects and contains TRIQS solver instance.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-<div class="viewcode-block" id="SolverStructure.__init__"><a class="viewcode-back" href="../../../reference/dmft_tools/solver.html#solid_dmft.dmft_tools.solver.SolverStructure.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">general_params</span><span class="p">,</span> <span class="n">solver_params</span><span class="p">,</span> <span class="n">sum_k</span><span class="p">,</span> <span class="n">icrsh</span><span class="p">,</span> <span class="n">h_int</span><span class="p">,</span> <span class="n">iteration_offset</span><span class="p">,</span> <span class="n">solver_struct_ftps</span><span class="p">):</span>
+<div class="viewcode-block" id="SolverStructure.__init__"><a class="viewcode-back" href="../../../reference/dmft_tools/solver.html#solid_dmft.dmft_tools.solver.SolverStructure.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">general_params</span><span class="p">,</span> <span class="n">solver_params</span><span class="p">,</span> <span class="n">sum_k</span><span class="p">,</span> <span class="n">icrsh</span><span class="p">,</span> <span class="n">h_int</span><span class="p">,</span> <span class="n">iteration_offset</span><span class="p">,</span> <span class="n">solver_struct_ftps</span><span class="p">):</span>
         <span class="sa">r</span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Initialisation of the solver instance with h_int for impurity &quot;icrsh&quot; based on soliDMFT parameters.</span>
 
@@ -372,7 +375,7 @@
 
         <span class="c1"># initialize solver object, options are cthyb</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">general_params</span><span class="p">[</span><span class="s1">&#39;solver_type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;cthyb&#39;</span><span class="p">:</span>
-            <span class="kn">from</span> <span class="nn">triqs_cthyb.version</span> <span class="kn">import</span> <span class="n">triqs_cthyb_hash</span>
+            <span class="kn">from</span> <span class="nn">triqs_cthyb.version</span> <span class="k">import</span> <span class="n">triqs_cthyb_hash</span>
 
             <span class="c1"># sets up necessary GF objects on ImFreq</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_init_ImFreq_objects</span><span class="p">()</span>
@@ -381,7 +384,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">git_hash</span> <span class="o">=</span> <span class="n">triqs_cthyb_hash</span>
 
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">general_params</span><span class="p">[</span><span class="s1">&#39;solver_type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;ctint&#39;</span><span class="p">:</span>
-            <span class="kn">from</span> <span class="nn">triqs_ctint.version</span> <span class="kn">import</span> <span class="n">triqs_ctint_hash</span>
+            <span class="kn">from</span> <span class="nn">triqs_ctint.version</span> <span class="k">import</span> <span class="n">triqs_ctint_hash</span>
 
             <span class="c1"># sets up necessary GF objects on ImFreq</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_init_ImFreq_objects</span><span class="p">()</span>
@@ -392,7 +395,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">git_hash</span> <span class="o">=</span> <span class="n">triqs_ctint_hash</span>
 
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">general_params</span><span class="p">[</span><span class="s1">&#39;solver_type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;hubbardI&#39;</span><span class="p">:</span>
-            <span class="kn">from</span> <span class="nn">triqs_hubbardI.version</span> <span class="kn">import</span> <span class="n">triqs_hubbardI_hash</span>
+            <span class="kn">from</span> <span class="nn">triqs_hubbardI.version</span> <span class="k">import</span> <span class="n">triqs_hubbardI_hash</span>
 
             <span class="c1"># sets up necessary GF objects on ImFreq</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_init_ImFreq_objects</span><span class="p">()</span>
@@ -402,7 +405,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">git_hash</span> <span class="o">=</span> <span class="n">triqs_hubbardI_hash</span>
 
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">general_params</span><span class="p">[</span><span class="s1">&#39;solver_type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;ftps&#39;</span><span class="p">:</span>
-            <span class="kn">from</span> <span class="nn">forktps.version</span> <span class="kn">import</span> <span class="n">forktps_hash</span>
+            <span class="kn">from</span> <span class="nn">forktps.version</span> <span class="k">import</span> <span class="n">forktps_hash</span>
 
             <span class="c1"># additional parameters</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">bathfit_adjusted</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">iteration_offset</span> <span class="o">!=</span> <span class="mi">0</span>
@@ -431,7 +434,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">git_hash</span> <span class="o">=</span> <span class="n">inchworm_hash</span>
 
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">general_params</span><span class="p">[</span><span class="s1">&#39;solver_type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;ctseg&#39;</span><span class="p">:</span>
-            <span class="kn">from</span> <span class="nn">triqs_ctseg.version</span> <span class="kn">import</span> <span class="n">triqs_ctseg_hash</span>
+            <span class="kn">from</span> <span class="nn">triqs_ctseg.version</span> <span class="k">import</span> <span class="n">triqs_ctseg_hash</span>
 
             <span class="c1"># sets up necessary GF objects on ImFreq</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_init_ImFreq_objects</span><span class="p">()</span>
@@ -591,10 +594,10 @@
 
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">general_params</span><span class="p">[</span><span class="s1">&#39;solver_type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;ftps&#39;</span><span class="p">:</span>
             <span class="kn">import</span> <span class="nn">forktps</span> <span class="k">as</span> <span class="nn">ftps</span>
-            <span class="kn">from</span> <span class="nn">forktps.DiscreteBath</span> <span class="kn">import</span> <span class="n">DiscretizeBath</span><span class="p">,</span> <span class="n">TimeStepEstimation</span>
-            <span class="kn">from</span> <span class="nn">forktps.BathFitting</span> <span class="kn">import</span> <span class="n">BathFitter</span>
-            <span class="kn">from</span> <span class="nn">forktps.Helpers</span> <span class="kn">import</span> <span class="n">MakeGFstruct</span>
-            <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">OffDiagFitter</span> <span class="k">as</span> <span class="n">off_fitter</span>
+            <span class="kn">from</span> <span class="nn">forktps.DiscreteBath</span> <span class="k">import</span> <span class="n">DiscretizeBath</span><span class="p">,</span> <span class="n">TimeStepEstimation</span>
+            <span class="kn">from</span> <span class="nn">forktps.BathFitting</span> <span class="k">import</span> <span class="n">BathFitter</span>
+            <span class="kn">from</span> <span class="nn">forktps.Helpers</span> <span class="k">import</span> <span class="n">MakeGFstruct</span>
+            <span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">OffDiagFitter</span> <span class="k">as</span> <span class="n">off_fitter</span>
 
             <span class="k">def</span> <span class="nf">make_positive_definite</span><span class="p">(</span><span class="n">G</span><span class="p">):</span>
                 <span class="c1"># ensure that Delta is positive definite</span>
@@ -754,7 +757,7 @@
         <span class="sa">r</span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Initialize cthyb solver instance</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="kn">from</span> <span class="nn">triqs_cthyb.solver</span> <span class="kn">import</span> <span class="n">Solver</span> <span class="k">as</span> <span class="n">cthyb_solver</span>
+        <span class="kn">from</span> <span class="nn">triqs_cthyb.solver</span> <span class="k">import</span> <span class="n">Solver</span> <span class="k">as</span> <span class="n">cthyb_solver</span>
 
         <span class="c1"># hotfix for new triqs 2.0 gf_struct_solver is still a dict</span>
         <span class="c1"># but cthyb 2.0 expects a list of pairs ####</span>
@@ -775,7 +778,7 @@
         <span class="sa">r</span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Initialize ctint solver instance</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="kn">from</span> <span class="nn">triqs_ctint</span> <span class="kn">import</span> <span class="n">Solver</span> <span class="k">as</span> <span class="n">ctint_solver</span>
+        <span class="kn">from</span> <span class="nn">triqs_ctint</span> <span class="k">import</span> <span class="n">Solver</span> <span class="k">as</span> <span class="n">ctint_solver</span>
 
         <span class="c1"># hotfix for new triqs 2.0 gf_struct_solver is still a dict</span>
         <span class="c1"># but cthyb 2.0 expects a list of pairs ####</span>
@@ -804,7 +807,7 @@
         <span class="sa">r</span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Initialize hubbardI solver instance</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="kn">from</span> <span class="nn">triqs_hubbardI</span> <span class="kn">import</span> <span class="n">Solver</span> <span class="k">as</span> <span class="n">hubbardI_solver</span>
+        <span class="kn">from</span> <span class="nn">triqs_hubbardI</span> <span class="k">import</span> <span class="n">Solver</span> <span class="k">as</span> <span class="n">hubbardI_solver</span>
 
         <span class="c1"># hotfix for new triqs 2.0 gf_struct_solver is still a dict</span>
         <span class="c1"># but cthyb 2.0 expects a list of pairs ####</span>
@@ -835,7 +838,7 @@
         <span class="sa">r</span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Initialize cthyb solver instance</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="kn">from</span> <span class="nn">triqs_ctseg</span> <span class="kn">import</span> <span class="n">Solver</span> <span class="k">as</span> <span class="n">ctseg_solver</span>
+        <span class="kn">from</span> <span class="nn">triqs_ctseg</span> <span class="k">import</span> <span class="n">Solver</span> <span class="k">as</span> <span class="n">ctseg_solver</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">general_params</span><span class="p">[</span><span class="s1">&#39;h_int_type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;dynamic&#39;</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">U_iw</span> <span class="o">=</span> <span class="kc">None</span>
@@ -882,7 +885,7 @@
             <span class="c1"># for SOC we just end up calculating everything for now</span>
             <span class="c1"># TODO: perhaps skip down channel</span>
             <span class="n">calc_mapping</span> <span class="o">=</span> <span class="kc">None</span>
-            <span class="n">calc_me</span> <span class="o">=</span> <span class="p">[[</span><span class="sa">f</span><span class="s1">&#39;ud_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span><span class="n">j</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span> <span class="ow">in</span> <span class="n">product</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">))]</span>
+            <span class="n">calc_me</span> <span class="o">=</span> <span class="p">[[</span><span class="n">f</span><span class="s1">&#39;ud_</span><span class="si">{i}</span><span class="s1">&#39;</span><span class="p">,</span><span class="n">j</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span> <span class="ow">in</span> <span class="n">product</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">))]</span>
 
         <span class="c1"># create solver</span>
         <span class="k">if</span> <span class="n">mpi</span><span class="o">.</span><span class="n">is_master_node</span><span class="p">():</span>
@@ -1055,7 +1058,7 @@
         <span class="sa">r</span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Organize G_freq, G_time, Sigma_freq and G_l from ftps solver</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="kn">from</span> <span class="nn">forktps.DiscreteBath</span> <span class="kn">import</span> <span class="n">SigmaDyson</span>
+        <span class="kn">from</span> <span class="nn">forktps.DiscreteBath</span> <span class="k">import</span> <span class="n">SigmaDyson</span>
 
         <span class="c1"># symmetrization of reduced solver G</span>
         <span class="k">def</span> <span class="nf">symmetrize_opt</span><span class="p">(</span><span class="n">G_in</span><span class="p">,</span> <span class="n">soc</span><span class="p">):</span>
@@ -1078,7 +1081,7 @@
                     <span class="n">spin</span><span class="p">,</span> <span class="n">block</span> <span class="o">=</span> <span class="n">key</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)</span>
                     <span class="k">for</span> <span class="n">deg_item</span> <span class="ow">in</span> <span class="n">mapto</span><span class="p">:</span>
                         <span class="n">map_spin</span><span class="p">,</span> <span class="n">map_block</span> <span class="o">=</span> <span class="n">deg_item</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)</span>
-                        <span class="n">mpi</span><span class="o">.</span><span class="n">report</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;mapping </span><span class="si">{</span><span class="n">spin</span><span class="si">}</span><span class="s1">-</span><span class="si">{</span><span class="n">block</span><span class="si">}</span><span class="s1"> to </span><span class="si">{</span><span class="n">map_spin</span><span class="si">}</span><span class="s1">-</span><span class="si">{</span><span class="n">map_block</span><span class="si">}</span><span class="s1">...&#39;</span><span class="p">)</span>
+                        <span class="n">mpi</span><span class="o">.</span><span class="n">report</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;mapping </span><span class="si">{spin}</span><span class="s1">-</span><span class="si">{block}</span><span class="s1"> to </span><span class="si">{map_spin}</span><span class="s1">-</span><span class="si">{map_block}</span><span class="s1">...&#39;</span><span class="p">)</span>
                         <span class="n">G</span><span class="p">[</span><span class="n">switch</span><span class="p">(</span><span class="n">map_spin</span><span class="p">)]</span><span class="o">.</span><span class="n">data</span><span class="p">[:,</span><span class="nb">int</span><span class="p">(</span><span class="n">map_block</span><span class="p">),</span><span class="nb">int</span><span class="p">(</span><span class="n">map_block</span><span class="p">)]</span> <span class="o">=</span> <span class="n">G</span><span class="p">[</span><span class="n">switch</span><span class="p">(</span><span class="n">spin</span><span class="p">)]</span><span class="o">.</span><span class="n">data</span><span class="p">[:,</span><span class="nb">int</span><span class="p">(</span><span class="n">block</span><span class="p">),</span><span class="nb">int</span><span class="p">(</span><span class="n">block</span><span class="p">)]</span>
                 <span class="c1"># particle-hole symmetry: enforce mirror/point symmetry of G(w)</span>
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">solver_params</span><span class="p">[</span><span class="s1">&#39;ph_symm&#39;</span><span class="p">]:</span>

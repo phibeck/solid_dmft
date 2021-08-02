@@ -186,9 +186,12 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../tutorials.html">tutorials</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/CaFeO3_csc_plo/tutorial.html">Running the initial SCF DFT calculation (~ 1 core hour)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/CaFeO3_csc_plo/tutorial.html#Input-files-for-CSC-DMFT-calculations">Input files for CSC DMFT calculations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/CaFeO3_csc_plo/tutorial.html#Running-the-CSC-DMFT-calculations">Running the CSC DMFT calculations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/CaFeO3_csc_plo/tutorial.html">CaFeO3 CSC with VASP PLOs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/CaFeO3_csc_plo/tutorial.html#Running-the-initial-SCF-DFT-calculation-(~-1-core-hour)">Running the initial SCF DFT calculation (~ 1 core hour)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/CaFeO3_csc_plo/tutorial.html#Input-files-for-CSC-DMFT-calculations">Input files for CSC DMFT calculations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/CaFeO3_csc_plo/tutorial.html#Running-the-CSC-DMFT-calculations">Running the CSC DMFT calculations</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../issues.html">reporting issues</a></li>
@@ -293,7 +296,7 @@
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="c1"># triqs</span>
-<span class="kn">from</span> <span class="nn">triqs.gf</span> <span class="kn">import</span> <span class="n">MeshImFreq</span>
+<span class="kn">from</span> <span class="nn">triqs.gf</span> <span class="k">import</span> <span class="n">MeshImFreq</span>
 
 <div class="viewcode-block" id="_generate_header"><a class="viewcode-back" href="../../../reference/dmft_tools/convergence.html#solid_dmft.dmft_tools.convergence._generate_header">[docs]</a><span class="k">def</span> <span class="nf">_generate_header</span><span class="p">(</span><span class="n">general_params</span><span class="p">,</span> <span class="n">sum_k</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>

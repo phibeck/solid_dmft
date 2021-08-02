@@ -271,13 +271,13 @@
 /* CSS overrides for sphinx_rtd_theme */
 
 /* 24px margin */
-.nbinput.nblast.container,
-.nboutput.nblast.container {
+.nbinput.nblast,
+.nboutput.nblast {
     margin-bottom: 19px;  /* padding has already 5px */
 }
 
 /* ... except between code cells! */
-.nblast.container + .nbinput.container {
+.nblast + .nbinput {
     margin-top: -19px;
 }
 

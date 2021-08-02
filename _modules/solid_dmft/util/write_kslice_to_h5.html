@@ -186,9 +186,12 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../tutorials.html">tutorials</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/CaFeO3_csc_plo/tutorial.html">Running the initial SCF DFT calculation (~ 1 core hour)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/CaFeO3_csc_plo/tutorial.html#Input-files-for-CSC-DMFT-calculations">Input files for CSC DMFT calculations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/CaFeO3_csc_plo/tutorial.html#Running-the-CSC-DMFT-calculations">Running the CSC DMFT calculations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/CaFeO3_csc_plo/tutorial.html">CaFeO3 CSC with VASP PLOs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/CaFeO3_csc_plo/tutorial.html#Running-the-initial-SCF-DFT-calculation-(~-1-core-hour)">Running the initial SCF DFT calculation (~ 1 core hour)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/CaFeO3_csc_plo/tutorial.html#Input-files-for-CSC-DMFT-calculations">Input files for CSC DMFT calculations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/CaFeO3_csc_plo/tutorial.html#Running-the-CSC-DMFT-calculations">Running the CSC DMFT calculations</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../issues.html">reporting issues</a></li>
@@ -302,7 +305,7 @@
 
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">h5</span> <span class="kn">import</span> <span class="n">HDFArchive</span>
+<span class="kn">from</span> <span class="nn">h5</span> <span class="k">import</span> <span class="n">HDFArchive</span>
 
 
 <div class="viewcode-block" id="_read_bands"><a class="viewcode-back" href="../../../reference/util/write_kslice_to_h5.html#solid_dmft.util.write_kslice_to_h5._read_bands">[docs]</a><span class="k">def</span> <span class="nf">_read_bands</span><span class="p">(</span><span class="n">seedname</span><span class="p">):</span>

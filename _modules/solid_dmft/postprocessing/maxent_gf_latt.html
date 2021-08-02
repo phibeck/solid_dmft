@@ -186,9 +186,12 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../tutorials.html">tutorials</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/CaFeO3_csc_plo/tutorial.html">Running the initial SCF DFT calculation (~ 1 core hour)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/CaFeO3_csc_plo/tutorial.html#Input-files-for-CSC-DMFT-calculations">Input files for CSC DMFT calculations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/CaFeO3_csc_plo/tutorial.html#Running-the-CSC-DMFT-calculations">Running the CSC DMFT calculations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/CaFeO3_csc_plo/tutorial.html">CaFeO3 CSC with VASP PLOs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/CaFeO3_csc_plo/tutorial.html#Running-the-initial-SCF-DFT-calculation-(~-1-core-hour)">Running the initial SCF DFT calculation (~ 1 core hour)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/CaFeO3_csc_plo/tutorial.html#Input-files-for-CSC-DMFT-calculations">Input files for CSC DMFT calculations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/CaFeO3_csc_plo/tutorial.html#Running-the-CSC-DMFT-calculations">Running the CSC DMFT calculations</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../issues.html">reporting issues</a></li>
@@ -303,16 +306,16 @@
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">time</span>
 <span class="kn">import</span> <span class="nn">glob</span>
-<span class="kn">from</span> <span class="nn">multiprocessing</span> <span class="kn">import</span> <span class="n">Pool</span>
-<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
+<span class="kn">from</span> <span class="nn">multiprocessing</span> <span class="k">import</span> <span class="n">Pool</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="k">import</span> <span class="n">partial</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
-<span class="kn">from</span> <span class="nn">triqs_maxent.tau_maxent</span> <span class="kn">import</span> <span class="n">TauMaxEnt</span>
-<span class="kn">from</span> <span class="nn">triqs_maxent.omega_meshes</span> <span class="kn">import</span> <span class="n">HyperbolicOmegaMesh</span>
-<span class="kn">from</span> <span class="nn">triqs_maxent.alpha_meshes</span> <span class="kn">import</span> <span class="n">LogAlphaMesh</span>
-<span class="kn">from</span> <span class="nn">triqs_dft_tools.sumk_dft</span> <span class="kn">import</span> <span class="n">SumkDFT</span>
-<span class="kn">from</span> <span class="nn">h5</span> <span class="kn">import</span> <span class="n">HDFArchive</span>
-<span class="kn">from</span> <span class="nn">triqs.gf</span> <span class="kn">import</span> <span class="n">GfImFreq</span>
+<span class="kn">from</span> <span class="nn">triqs_maxent.tau_maxent</span> <span class="k">import</span> <span class="n">TauMaxEnt</span>
+<span class="kn">from</span> <span class="nn">triqs_maxent.omega_meshes</span> <span class="k">import</span> <span class="n">HyperbolicOmegaMesh</span>
+<span class="kn">from</span> <span class="nn">triqs_maxent.alpha_meshes</span> <span class="k">import</span> <span class="n">LogAlphaMesh</span>
+<span class="kn">from</span> <span class="nn">triqs_dft_tools.sumk_dft</span> <span class="k">import</span> <span class="n">SumkDFT</span>
+<span class="kn">from</span> <span class="nn">h5</span> <span class="k">import</span> <span class="n">HDFArchive</span>
+<span class="kn">from</span> <span class="nn">triqs.gf</span> <span class="k">import</span> <span class="n">GfImFreq</span>
 
 
 <div class="viewcode-block" id="_read_h5"><a class="viewcode-back" href="../../../reference/postprocessing/maxent_gf_latt.html#solid_dmft.postprocessing.maxent_gf_latt._read_h5">[docs]</a><span class="k">def</span> <span class="nf">_read_h5</span><span class="p">(</span><span class="n">external_path</span><span class="p">,</span> <span class="n">iteration</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>

@@ -186,9 +186,12 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../tutorials.html">tutorials</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/CaFeO3_csc_plo/tutorial.html">Running the initial SCF DFT calculation (~ 1 core hour)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/CaFeO3_csc_plo/tutorial.html#Input-files-for-CSC-DMFT-calculations">Input files for CSC DMFT calculations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/CaFeO3_csc_plo/tutorial.html#Running-the-CSC-DMFT-calculations">Running the CSC DMFT calculations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/CaFeO3_csc_plo/tutorial.html">CaFeO3 CSC with VASP PLOs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/CaFeO3_csc_plo/tutorial.html#Running-the-initial-SCF-DFT-calculation-(~-1-core-hour)">Running the initial SCF DFT calculation (~ 1 core hour)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/CaFeO3_csc_plo/tutorial.html#Input-files-for-CSC-DMFT-calculations">Input files for CSC DMFT calculations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/CaFeO3_csc_plo/tutorial.html#Running-the-CSC-DMFT-calculations">Running the CSC DMFT calculations</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../issues.html">reporting issues</a></li>
@@ -292,10 +295,10 @@
 
 <span class="c1"># triqs</span>
 <span class="kn">import</span> <span class="nn">triqs.utility.mpi</span> <span class="k">as</span> <span class="nn">mpi</span>
-<span class="kn">from</span> <span class="nn">triqs.gf</span> <span class="kn">import</span> <span class="n">MeshImFreq</span><span class="p">,</span> <span class="n">GfImTime</span><span class="p">,</span> <span class="n">make_gf_from_fourier</span>
-<span class="kn">from</span> <span class="nn">triqs.gf.descriptors</span> <span class="kn">import</span> <span class="n">Fourier</span>
+<span class="kn">from</span> <span class="nn">triqs.gf</span> <span class="k">import</span> <span class="n">MeshImFreq</span><span class="p">,</span> <span class="n">GfImTime</span><span class="p">,</span> <span class="n">make_gf_from_fourier</span>
+<span class="kn">from</span> <span class="nn">triqs.gf.descriptors</span> <span class="k">import</span> <span class="n">Fourier</span>
 
-<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">legendre_filter</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">legendre_filter</span>
 
 
 <div class="viewcode-block" id="_bgf_to_vec"><a class="viewcode-back" href="../../../reference/dmft_tools/gf_mixer.html#solid_dmft.dmft_tools.greens_functions_mixer._bgf_to_vec">[docs]</a><span class="k">def</span> <span class="nf">_bgf_to_vec</span><span class="p">(</span><span class="n">bgf</span><span class="p">,</span> <span class="n">deg_shells</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
