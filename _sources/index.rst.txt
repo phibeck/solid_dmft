@@ -8,8 +8,15 @@
 solid_dmft
 **********
 
-This is the homepage of solid_dmft v3.0.0.
-For changes see the :ref:`changelog page <changelog>`.
+.. sidebar:: app4triqs 3.0.0
+
+   This is the homepage of solid_dmft v3.0.0.
+   For changes see the :ref:`changelog page <changelog>`.
+      
+      .. image:: _static/logo_github.png
+         :width: 75%
+         :align: center
+         :target: https://github.com/triqs/app4triqs
 
 
 This program allows to perform DFT+DMFT ''one-shot'' and CSC
@@ -33,8 +40,6 @@ Learn how to use solid_dmft in the :ref:`documentation`.
 
 .. image:: logos/flatiron.png
    :width: 300
+   :align: center
    :target: https://www.simonsfoundation.org/flatiron/center-for-computational-quantum-physics
 
-.. image:: logos/github.png
-   :width: 300
-   :target: https://github.com/flatironinstitute/solid_dmft
