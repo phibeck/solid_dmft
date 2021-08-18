@@ -22,12 +22,13 @@ Learn how to use solid_dmft in the :ref:`documentation`.
 
 .. toctree::
    :maxdepth: 2
+   :hidden:
 
    install
    documentation
    tutorials
    issues
-   changelog
+   ChangeLog.md
 
 
 .. image:: logos/flatiron.png
