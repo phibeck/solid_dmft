@@ -3,12 +3,13 @@
 .. module:: solid_dmft
 
 .. image:: logos/logo_solid_dmft.png
-   :width: 600
+   :width: 800
+   :align: center
 
 solid_dmft
 **********
 
-.. sidebar:: app4triqs 3.0.0
+.. sidebar:: solid_dmft 3.0.0
 
    This is the homepage of solid_dmft v3.0.0.
    For changes see the :ref:`changelog page <changelog>`.
@@ -16,7 +17,7 @@ solid_dmft
       .. image:: _static/logo_github.png
          :width: 75%
          :align: center
-         :target: https://github.com/triqs/app4triqs
+         :target: https://github.com/flatironinstitute/solid_dmft
 
 
 This program allows to perform DFT+DMFT ''one-shot'' and CSC
