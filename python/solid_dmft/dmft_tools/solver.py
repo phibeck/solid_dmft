@@ -642,6 +642,21 @@ class SolverStructure:
         Organize G_freq, G_time, Sigma_freq and G_l from cthyb solver
         '''
 
+        def symmetrize_opt(G_in):
+            G = G_in.copy()
+            def swap_2():
+                for i in range(2):
+                    G['ud_1'][i,2] = -G['ud_1'][i,2]
+                    G['ud_1'][2,i] = -G['ud_1'][2,i]
+            swap_2()
+            G['ud_0'] = 0.5*(G['ud_0'] + G['ud_1'])
+            G['ud_1'] = G['ud_0']
+            for name , g in G:
+                g[1,1] = 0.5*(g[1,1]+g[2,2])
+                g[2,2] = g[1,1]
+            swap_2()
+            return G
+
         def set_Gs_from_G_l():
 
             # create new G_freq and G_time
@@ -652,7 +667,9 @@ class SolverStructure:
                 self.G_time[i].set_from_legendre(g)
 
             # Symmetrize
-            self.G_freq << make_hermitian(self.G_freq)
+            #self.G_freq << make_hermitian(self.G_freq)
+            self.G_freq << make_hermitian(symmetrize_opt(self.G_freq))
+            mpi.report('TODO: Applying symmetrization 2')
             self.G_freq_unsym << self.G_freq
             self.sum_k.symm_deg_gf(self.G_freq, ish=self.icrsh)
             self.sum_k.symm_deg_gf(self.G_time, ish=self.icrsh)
@@ -673,7 +690,8 @@ class SolverStructure:
             set_Gs_from_G_l()
 
         else:
-            self.G_freq << make_hermitian(self.triqs_solver.G_iw)
+            self.G_freq << make_hermitian(symmetrize_opt(self.triqs_solver.G_iw))
+            mpi.report('TODO: Applying symmetrization 1')
             self.G_freq_unsym << self.G_freq
             self.sum_k.symm_deg_gf(self.G_freq, ish=self.icrsh)
             # obtain Sigma via dyson from symmetrized G_freq
